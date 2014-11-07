@@ -9,10 +9,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean (name = "helloWorld")
 public class HelloWorld 
 {
-    public HelloWorld()
-    {
-        
-    }
+    public HelloWorld() {}
 
     public String getMessage()
     {
