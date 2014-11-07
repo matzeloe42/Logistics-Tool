@@ -11,5 +11,8 @@ package com.logisticsTool;
  */
 public class HelloWorld 
 {
-    
+    public HelloWorld()
+    {
+        
+    }
 }
