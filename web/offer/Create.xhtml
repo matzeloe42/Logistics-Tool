@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateOfferTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateOfferLabel_offerid}" for="offerid" />
+                    <h:inputText id="offerid" value="#{offerController.selected.offerid}" title="#{bundle.CreateOfferTitle_offerid}" required="true" requiredMessage="#{bundle.CreateOfferRequiredMessage_offerid}"/>
+                    <h:outputLabel value="#{bundle.CreateOfferLabel_customerid}" for="customerid" />
+                    <h:inputText id="customerid" value="#{offerController.selected.customerid}" title="#{bundle.CreateOfferTitle_customerid}" required="true" requiredMessage="#{bundle.CreateOfferRequiredMessage_customerid}"/>
+                    <h:outputLabel value="#{bundle.CreateOfferLabel_creationdate}" for="creationdate" />
+                    <h:inputText id="creationdate" value="#{offerController.selected.creationdate}" title="#{bundle.CreateOfferTitle_creationdate}" required="true" requiredMessage="#{bundle.CreateOfferRequiredMessage_creationdate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateOfferLabel_salestax}" for="salestax" />
+                    <h:inputText id="salestax" value="#{offerController.selected.salestax}" title="#{bundle.CreateOfferTitle_salestax}" required="true" requiredMessage="#{bundle.CreateOfferRequiredMessage_salestax}"/>
+                    <h:outputLabel value="#{bundle.CreateOfferLabel_offertype}" for="offertype" />
+                    <h:inputText id="offertype" value="#{offerController.selected.offertype}" title="#{bundle.CreateOfferTitle_offertype}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{offerController.create}" value="#{bundle.CreateOfferSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{offerController.prepareList}" value="#{bundle.CreateOfferShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateOfferIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAddressTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAddressLabel_addressid}" for="addressid" />
+                    <h:inputText id="addressid" value="#{addressController.selected.addressid}" title="#{bundle.CreateAddressTitle_addressid}" required="true" requiredMessage="#{bundle.CreateAddressRequiredMessage_addressid}"/>
+                    <h:outputLabel value="#{bundle.CreateAddressLabel_street}" for="street" />
+                    <h:inputText id="street" value="#{addressController.selected.street}" title="#{bundle.CreateAddressTitle_street}" />
+                    <h:outputLabel value="#{bundle.CreateAddressLabel_housenumber}" for="housenumber" />
+                    <h:inputText id="housenumber" value="#{addressController.selected.housenumber}" title="#{bundle.CreateAddressTitle_housenumber}" />
+                    <h:outputLabel value="#{bundle.CreateAddressLabel_zip}" for="zip" />
+                    <h:selectOneMenu id="zip" value="#{addressController.selected.zip}" title="#{bundle.CreateAddressTitle_zip}" required="true" requiredMessage="#{bundle.CreateAddressRequiredMessage_zip}">
+                        <f:selectItems value="#{placeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{addressController.create}" value="#{bundle.CreateAddressSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{addressController.prepareList}" value="#{bundle.CreateAddressShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAddressIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewCreditadviceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewCreditadviceLabel_creditadviceid}"/>
+                    <h:outputText value="#{creditadviceController.selected.creditadviceid}" title="#{bundle.ViewCreditadviceTitle_creditadviceid}"/>
+                    <h:outputText value="#{bundle.ViewCreditadviceLabel_creaditadvicedate}"/>
+                    <h:outputText value="#{creditadviceController.selected.creaditadvicedate}" title="#{bundle.ViewCreditadviceTitle_creaditadvicedate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewCreditadviceLabel_amount}"/>
+                    <h:outputText value="#{creditadviceController.selected.amount}" title="#{bundle.ViewCreditadviceTitle_amount}"/>
+                    <h:outputText value="#{bundle.ViewCreditadviceLabel_customerid}"/>
+                    <h:outputText value="#{creditadviceController.selected.customerid}" title="#{bundle.ViewCreditadviceTitle_customerid}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{creditadviceController.destroyAndView}" value="#{bundle.ViewCreditadviceDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewCreditadviceEditLink}"/>
+                <br />
+                <h:commandLink action="#{creditadviceController.prepareCreate}" value="#{bundle.ViewCreditadviceCreateLink}" />
+                <br />
+                <h:commandLink action="#{creditadviceController.prepareList}" value="#{bundle.ViewCreditadviceShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewCreditadviceIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

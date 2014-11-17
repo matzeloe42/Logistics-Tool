@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewStartaddressTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewStartaddressLabel_startaddressid}"/>
+                    <h:outputText value="#{startaddressController.selected.startaddressid}" title="#{bundle.ViewStartaddressTitle_startaddressid}"/>
+                    <h:outputText value="#{bundle.ViewStartaddressLabel_street}"/>
+                    <h:outputText value="#{startaddressController.selected.street}" title="#{bundle.ViewStartaddressTitle_street}"/>
+                    <h:outputText value="#{bundle.ViewStartaddressLabel_housenumber}"/>
+                    <h:outputText value="#{startaddressController.selected.housenumber}" title="#{bundle.ViewStartaddressTitle_housenumber}"/>
+                    <h:outputText value="#{bundle.ViewStartaddressLabel_zip}"/>
+                    <h:outputText value="#{startaddressController.selected.zip}" title="#{bundle.ViewStartaddressTitle_zip}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{startaddressController.destroyAndView}" value="#{bundle.ViewStartaddressDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewStartaddressEditLink}"/>
+                <br />
+                <h:commandLink action="#{startaddressController.prepareCreate}" value="#{bundle.ViewStartaddressCreateLink}" />
+                <br />
+                <h:commandLink action="#{startaddressController.prepareList}" value="#{bundle.ViewStartaddressShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewStartaddressIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

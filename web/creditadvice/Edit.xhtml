@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditCreditadviceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditCreditadviceLabel_creditadviceid}" for="creditadviceid" />
+                    <h:inputText id="creditadviceid" value="#{creditadviceController.selected.creditadviceid}" title="#{bundle.EditCreditadviceTitle_creditadviceid}" required="true" requiredMessage="#{bundle.EditCreditadviceRequiredMessage_creditadviceid}"/>
+                    <h:outputLabel value="#{bundle.EditCreditadviceLabel_creaditadvicedate}" for="creaditadvicedate" />
+                    <h:inputText id="creaditadvicedate" value="#{creditadviceController.selected.creaditadvicedate}" title="#{bundle.EditCreditadviceTitle_creaditadvicedate}" required="true" requiredMessage="#{bundle.EditCreditadviceRequiredMessage_creaditadvicedate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditCreditadviceLabel_amount}" for="amount" />
+                    <h:inputText id="amount" value="#{creditadviceController.selected.amount}" title="#{bundle.EditCreditadviceTitle_amount}" required="true" requiredMessage="#{bundle.EditCreditadviceRequiredMessage_amount}"/>
+                    <h:outputLabel value="#{bundle.EditCreditadviceLabel_customerid}" for="customerid" />
+                    <h:selectOneMenu id="customerid" value="#{creditadviceController.selected.customerid}" title="#{bundle.EditCreditadviceTitle_customerid}" required="true" requiredMessage="#{bundle.EditCreditadviceRequiredMessage_customerid}">
+                        <f:selectItems value="#{customerController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{creditadviceController.update}" value="#{bundle.EditCreditadviceSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditCreditadviceViewLink}"/>
+                <br />
+                <h:commandLink action="#{creditadviceController.prepareList}" value="#{bundle.EditCreditadviceShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditCreditadviceIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

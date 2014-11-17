@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateJobTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateJobLabel_jobid}" for="jobid" />
+                    <h:inputText id="jobid" value="#{jobController.selected.jobid}" title="#{bundle.CreateJobTitle_jobid}" required="true" requiredMessage="#{bundle.CreateJobRequiredMessage_jobid}"/>
+                    <h:outputLabel value="#{bundle.CreateJobLabel_creationdate}" for="creationdate" />
+                    <h:inputText id="creationdate" value="#{jobController.selected.creationdate}" title="#{bundle.CreateJobTitle_creationdate}" required="true" requiredMessage="#{bundle.CreateJobRequiredMessage_creationdate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateJobLabel_salestax}" for="salestax" />
+                    <h:inputText id="salestax" value="#{jobController.selected.salestax}" title="#{bundle.CreateJobTitle_salestax}" required="true" requiredMessage="#{bundle.CreateJobRequiredMessage_salestax}"/>
+                    <h:outputLabel value="#{bundle.CreateJobLabel_totalsum}" for="totalsum" />
+                    <h:inputText id="totalsum" value="#{jobController.selected.totalsum}" title="#{bundle.CreateJobTitle_totalsum}" required="true" requiredMessage="#{bundle.CreateJobRequiredMessage_totalsum}"/>
+                    <h:outputLabel value="#{bundle.CreateJobLabel_offerid}" for="offerid" />
+                    <h:selectOneMenu id="offerid" value="#{jobController.selected.offerid}" title="#{bundle.CreateJobTitle_offerid}" required="true" requiredMessage="#{bundle.CreateJobRequiredMessage_offerid}">
+                        <f:selectItems value="#{offerController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{jobController.create}" value="#{bundle.CreateJobSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{jobController.prepareList}" value="#{bundle.CreateJobShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateJobIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

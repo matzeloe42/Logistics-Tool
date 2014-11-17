@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateServiceTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateServiceLabel_serviceid}" for="serviceid" />
+                    <h:inputText id="serviceid" value="#{serviceController.selected.serviceid}" title="#{bundle.CreateServiceTitle_serviceid}" required="true" requiredMessage="#{bundle.CreateServiceRequiredMessage_serviceid}"/>
+                    <h:outputLabel value="#{bundle.CreateServiceLabel_denotation}" for="denotation" />
+                    <h:inputText id="denotation" value="#{serviceController.selected.denotation}" title="#{bundle.CreateServiceTitle_denotation}" required="true" requiredMessage="#{bundle.CreateServiceRequiredMessage_denotation}"/>
+                    <h:outputLabel value="#{bundle.CreateServiceLabel_prize}" for="prize" />
+                    <h:inputText id="prize" value="#{serviceController.selected.prize}" title="#{bundle.CreateServiceTitle_prize}" required="true" requiredMessage="#{bundle.CreateServiceRequiredMessage_prize}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{serviceController.create}" value="#{bundle.CreateServiceSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{serviceController.prepareList}" value="#{bundle.CreateServiceShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateServiceIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

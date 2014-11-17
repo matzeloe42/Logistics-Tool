@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOfferTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListOfferEmpty}" rendered="#{offerController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{offerController.items.rowCount > 0}">
+                    <h:outputText value="#{offerController.pagination.pageFirstItem + 1}..#{offerController.pagination.pageLastItem + 1}/#{offerController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{offerController.previous}" value="#{bundle.Previous} #{offerController.pagination.pageSize}" rendered="#{offerController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{offerController.next}" value="#{bundle.Next} #{offerController.pagination.pageSize}" rendered="#{offerController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{offerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOfferTitle_offerid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.offerid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOfferTitle_customerid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.customerid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOfferTitle_creationdate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.creationdate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOfferTitle_salestax}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.salestax}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOfferTitle_offertype}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.offertype}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{offerController.prepareView}" value="#{bundle.ListOfferViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{offerController.prepareEdit}" value="#{bundle.ListOfferEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{offerController.destroy}" value="#{bundle.ListOfferDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{offerController.prepareCreate}" value="#{bundle.ListOfferCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListOfferIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
