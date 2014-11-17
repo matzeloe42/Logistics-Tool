@@ -144,5 +144,5 @@ public class Place implements Serializable
     {
         return "logisticstool.com.entities.Place[ zip=" + zip + " ]";
     }
-    
+
 }
