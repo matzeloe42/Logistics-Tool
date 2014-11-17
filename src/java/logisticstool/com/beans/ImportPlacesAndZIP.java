@@ -26,7 +26,10 @@ public class ImportPlacesAndZIP
         importedPlaces.add("Ort:" + "   " + "PLZ:");
         
         //String csvFile = "C:\\Users\\Matze\\Documents\\NetBeansProjects\\Logistics-Tool\\zip data\\postleitzahlen_v10.xls";
-        String csvFile = "C:\\Users\\Matze\\Documents\\NetBeansProjects\\Logistics-Tool\\zip data\\plz.csv";
+        
+        // GlassFish:
+        String filePath = new File("").getAbsolutePath();
+        String csvFile = filePath + "/src/Files/plz.csv";
         //String csvFile = "Users/Matze/Documents/NetBeansProjects/Logistics-Tool/zip data/plz.csv";
         BufferedReader bufferedReader = null;
         String line = "";
