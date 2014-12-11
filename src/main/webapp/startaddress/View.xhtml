@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StartaddressViewDlg" widgetVar="StartaddressViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewStartaddressTitle}">
+            <h:form id="StartaddressViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{startaddressController.selected != null}">
+                        <h:outputText value="#{bundle.ViewStartaddressLabel_startAddressID}"/>
+                        <h:outputText value="#{startaddressController.selected.startAddressID}" title="#{bundle.ViewStartaddressTitle_startAddressID}"/>
+                        <h:outputText value="#{bundle.ViewStartaddressLabel_street}"/>
+                        <h:outputText value="#{startaddressController.selected.street}" title="#{bundle.ViewStartaddressTitle_street}"/>
+                        <h:outputText value="#{bundle.ViewStartaddressLabel_housenumber}"/>
+                        <h:outputText value="#{startaddressController.selected.housenumber}" title="#{bundle.ViewStartaddressTitle_housenumber}"/>
+                        <h:outputText value="#{bundle.ViewStartaddressLabel_placeZIP}"/>
+                        <h:outputText value="#{startaddressController.selected.placeZIP}" title="#{bundle.ViewStartaddressTitle_placeZIP}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="StartaddressViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

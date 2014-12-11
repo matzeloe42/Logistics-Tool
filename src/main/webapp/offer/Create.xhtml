@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OfferCreateDlg" widgetVar="OfferCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateOfferTitle}">
+            <h:form id="OfferCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{offerController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateOfferLabel_offerID}" for="offerID" />
+                        <p:inputText id="offerID" value="#{offerController.selected.offerID}" title="#{bundle.CreateOfferTitle_offerID}" required="true" requiredMessage="#{bundle.CreateOfferRequiredMessage_offerID}"/>
+                        <p:outputLabel value="#{bundle.CreateOfferLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{offerController.selected.creationDate}" title="#{bundle.EditOfferTitle_creationDate}" required="true" requiredMessage="#{bundle.EditOfferRequiredMessage_creationDate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateOfferLabel_salestax}" for="salestax" />
+                        <p:inputText id="salestax" value="#{offerController.selected.salestax}" title="#{bundle.CreateOfferTitle_salestax}" required="true" requiredMessage="#{bundle.CreateOfferRequiredMessage_salestax}"/>
+                        <p:outputLabel value="#{bundle.CreateOfferLabel_customerCustomerID}" for="customerCustomerID" />
+                        <p:selectOneMenu id="customerCustomerID" value="#{offerController.selected.customerCustomerID}" required="true" requiredMessage="#{bundle.EditOfferRequiredMessage_customerCustomerID}">
+                            <f:selectItems value="#{customerController.itemsAvailableSelectOne}"
+                                           var="customerCustomerIDItem"
+                                           itemValue="#{customerCustomerIDItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateOfferLabel_moveMoveID}" for="moveMoveID" />
+                        <p:selectOneMenu id="moveMoveID" value="#{offerController.selected.moveMoveID}" >
+                            <f:selectItems value="#{moveController.itemsAvailableSelectOne}"
+                                           var="moveMoveIDItem"
+                                           itemValue="#{moveMoveIDItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateOfferLabel_storageStorageID}" for="storageStorageID" />
+                        <p:selectOneMenu id="storageStorageID" value="#{offerController.selected.storageStorageID}" >
+                            <f:selectItems value="#{storageController.itemsAvailableSelectOne}"
+                                           var="storageStorageIDItem"
+                                           itemValue="#{storageStorageIDItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateOfferLabel_transportTransportID}" for="transportTransportID" />
+                        <p:selectOneMenu id="transportTransportID" value="#{offerController.selected.transportTransportID}" >
+                            <f:selectItems value="#{transportController.itemsAvailableSelectOne}"
+                                           var="transportTransportIDItem"
+                                           itemValue="#{transportTransportIDItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{offerController.create}" value="#{bundle.Save}" update="display,:OfferListForm:datalist,:growl" oncomplete="handleSubmit(args,'OfferCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="OfferCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

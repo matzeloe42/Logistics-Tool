@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="JobCreateDlg" widgetVar="JobCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateJobTitle}">
+            <h:form id="JobCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{jobController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateJobLabel_jobID}" for="jobID" />
+                        <p:inputText id="jobID" value="#{jobController.selected.jobID}" title="#{bundle.CreateJobTitle_jobID}" required="true" requiredMessage="#{bundle.CreateJobRequiredMessage_jobID}"/>
+                        <p:outputLabel value="#{bundle.CreateJobLabel_creationDate}" for="creationDate" />
+                        <p:calendar id="creationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{jobController.selected.creationDate}" title="#{bundle.EditJobTitle_creationDate}" required="true" requiredMessage="#{bundle.EditJobRequiredMessage_creationDate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateJobLabel_salestax}" for="salestax" />
+                        <p:inputText id="salestax" value="#{jobController.selected.salestax}" title="#{bundle.CreateJobTitle_salestax}" required="true" requiredMessage="#{bundle.CreateJobRequiredMessage_salestax}"/>
+                        <p:outputLabel value="#{bundle.CreateJobLabel_totalSum}" for="totalSum" />
+                        <p:inputText id="totalSum" value="#{jobController.selected.totalSum}" title="#{bundle.CreateJobTitle_totalSum}" required="true" requiredMessage="#{bundle.CreateJobRequiredMessage_totalSum}"/>
+                        <p:outputLabel value="#{bundle.CreateJobLabel_offerOfferID}" for="offerOfferID" />
+                        <p:selectOneMenu id="offerOfferID" value="#{jobController.selected.offerOfferID}" required="true" requiredMessage="#{bundle.EditJobRequiredMessage_offerOfferID}">
+                            <f:selectItems value="#{offerController.itemsAvailableSelectOne}"
+                                           var="offerOfferIDItem"
+                                           itemValue="#{offerOfferIDItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{jobController.create}" value="#{bundle.Save}" update="display,:JobListForm:datalist,:growl" oncomplete="handleSubmit(args,'JobCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="JobCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

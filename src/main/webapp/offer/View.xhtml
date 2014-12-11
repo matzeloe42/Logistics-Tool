@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OfferViewDlg" widgetVar="OfferViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOfferTitle}">
+            <h:form id="OfferViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{offerController.selected != null}">
+                        <h:outputText value="#{bundle.ViewOfferLabel_offerID}"/>
+                        <h:outputText value="#{offerController.selected.offerID}" title="#{bundle.ViewOfferTitle_offerID}"/>
+                        <h:outputText value="#{bundle.ViewOfferLabel_creationDate}"/>
+                        <h:outputText value="#{offerController.selected.creationDate}" title="#{bundle.ViewOfferTitle_creationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewOfferLabel_salestax}"/>
+                        <h:outputText value="#{offerController.selected.salestax}" title="#{bundle.ViewOfferTitle_salestax}"/>
+                        <h:outputText value="#{bundle.ViewOfferLabel_customerCustomerID}"/>
+                        <h:outputText value="#{offerController.selected.customerCustomerID}" title="#{bundle.ViewOfferTitle_customerCustomerID}"/>
+                        <h:outputText value="#{bundle.ViewOfferLabel_moveMoveID}"/>
+                        <h:outputText value="#{offerController.selected.moveMoveID}" title="#{bundle.ViewOfferTitle_moveMoveID}"/>
+                        <h:outputText value="#{bundle.ViewOfferLabel_storageStorageID}"/>
+                        <h:outputText value="#{offerController.selected.storageStorageID}" title="#{bundle.ViewOfferTitle_storageStorageID}"/>
+                        <h:outputText value="#{bundle.ViewOfferLabel_transportTransportID}"/>
+                        <h:outputText value="#{offerController.selected.transportTransportID}" title="#{bundle.ViewOfferTitle_transportTransportID}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="OfferViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

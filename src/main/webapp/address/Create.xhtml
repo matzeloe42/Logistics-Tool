@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AddressCreateDlg" widgetVar="AddressCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAddressTitle}">
+            <h:form id="AddressCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{addressController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAddressLabel_addressID}" for="addressID" />
+                        <p:inputText id="addressID" value="#{addressController.selected.addressID}" title="#{bundle.CreateAddressTitle_addressID}" required="true" requiredMessage="#{bundle.CreateAddressRequiredMessage_addressID}"/>
+                        <p:outputLabel value="#{bundle.CreateAddressLabel_street}" for="street" />
+                        <p:inputText id="street" value="#{addressController.selected.street}" title="#{bundle.CreateAddressTitle_street}" required="true" requiredMessage="#{bundle.CreateAddressRequiredMessage_street}"/>
+                        <p:outputLabel value="#{bundle.CreateAddressLabel_housenumber}" for="housenumber" />
+                        <p:inputText id="housenumber" value="#{addressController.selected.housenumber}" title="#{bundle.CreateAddressTitle_housenumber}" required="true" requiredMessage="#{bundle.CreateAddressRequiredMessage_housenumber}"/>
+                        <p:outputLabel value="#{bundle.CreateAddressLabel_placeZIP}" for="placeZIP" />
+                        <p:selectOneMenu id="placeZIP" value="#{addressController.selected.placeZIP}" required="true" requiredMessage="#{bundle.EditAddressRequiredMessage_placeZIP}">
+                            <f:selectItems value="#{placeController.itemsAvailableSelectOne}"
+                                           var="placeZIPItem"
+                                           itemValue="#{placeZIPItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{addressController.create}" value="#{bundle.Save}" update="display,:AddressListForm:datalist,:growl" oncomplete="handleSubmit(args,'AddressCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AddressCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

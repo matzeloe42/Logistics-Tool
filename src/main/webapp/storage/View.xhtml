@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StorageViewDlg" widgetVar="StorageViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewStorageTitle}">
+            <h:form id="StorageViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{storageController.selected != null}">
+                        <h:outputText value="#{bundle.ViewStorageLabel_amount}"/>
+                        <h:outputText value="#{storageController.selected.amount}" title="#{bundle.ViewStorageTitle_amount}"/>
+                        <h:outputText value="#{bundle.ViewStorageLabel_prize}"/>
+                        <h:outputText value="#{storageController.selected.prize}" title="#{bundle.ViewStorageTitle_prize}"/>
+                        <h:outputText value="#{bundle.ViewStorageLabel_storageID}"/>
+                        <h:outputText value="#{storageController.selected.storageID}" title="#{bundle.ViewStorageTitle_storageID}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="StorageViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

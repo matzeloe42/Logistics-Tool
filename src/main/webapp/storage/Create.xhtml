@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StorageCreateDlg" widgetVar="StorageCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateStorageTitle}">
+            <h:form id="StorageCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{storageController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateStorageLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{storageController.selected.amount}" title="#{bundle.CreateStorageTitle_amount}" required="true" requiredMessage="#{bundle.CreateStorageRequiredMessage_amount}"/>
+                        <p:outputLabel value="#{bundle.CreateStorageLabel_prize}" for="prize" />
+                        <p:inputText id="prize" value="#{storageController.selected.prize}" title="#{bundle.CreateStorageTitle_prize}" required="true" requiredMessage="#{bundle.CreateStorageRequiredMessage_prize}"/>
+                        <p:outputLabel value="#{bundle.CreateStorageLabel_storageID}" for="storageID" />
+                        <p:inputText id="storageID" value="#{storageController.selected.storageID}" title="#{bundle.CreateStorageTitle_storageID}" required="true" requiredMessage="#{bundle.CreateStorageRequiredMessage_storageID}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{storageController.create}" value="#{bundle.Save}" update="display,:StorageListForm:datalist,:growl" oncomplete="handleSubmit(args,'StorageCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StorageCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

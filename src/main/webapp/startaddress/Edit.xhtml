@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StartaddressEditDlg" widgetVar="StartaddressEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditStartaddressTitle}">
+            <h:form id="StartaddressEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{startaddressController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditStartaddressLabel_startAddressID}" for="startAddressID" />
+                        <p:inputText id="startAddressID" value="#{startaddressController.selected.startAddressID}" title="#{bundle.EditStartaddressTitle_startAddressID}" required="true" requiredMessage="#{bundle.EditStartaddressRequiredMessage_startAddressID}"/>
+                        <p:outputLabel value="#{bundle.EditStartaddressLabel_street}" for="street" />
+                        <p:inputText id="street" value="#{startaddressController.selected.street}" title="#{bundle.EditStartaddressTitle_street}" required="true" requiredMessage="#{bundle.EditStartaddressRequiredMessage_street}"/>
+                        <p:outputLabel value="#{bundle.EditStartaddressLabel_housenumber}" for="housenumber" />
+                        <p:inputText id="housenumber" value="#{startaddressController.selected.housenumber}" title="#{bundle.EditStartaddressTitle_housenumber}" required="true" requiredMessage="#{bundle.EditStartaddressRequiredMessage_housenumber}"/>
+                        <p:outputLabel value="#{bundle.EditStartaddressLabel_placeZIP}" for="placeZIP" />
+                        <p:selectOneMenu id="placeZIP" value="#{startaddressController.selected.placeZIP}" required="true" requiredMessage="#{bundle.EditStartaddressRequiredMessage_placeZIP}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{placeController.itemsAvailableSelectOne}"
+                                           var="placeZIPItem"
+                                           itemValue="#{placeZIPItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{startaddressController.update}" value="#{bundle.Save}" update="display,:StartaddressListForm:datalist,:growl" oncomplete="handleSubmit(args, 'StartaddressEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="StartaddressEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

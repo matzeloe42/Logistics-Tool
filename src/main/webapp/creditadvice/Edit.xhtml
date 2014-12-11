@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CreditadviceEditDlg" widgetVar="CreditadviceEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCreditadviceTitle}">
+            <h:form id="CreditadviceEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{creditadviceController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCreditadviceLabel_creditadviceID}" for="creditadviceID" />
+                        <p:inputText id="creditadviceID" value="#{creditadviceController.selected.creditadviceID}" title="#{bundle.EditCreditadviceTitle_creditadviceID}" required="true" requiredMessage="#{bundle.EditCreditadviceRequiredMessage_creditadviceID}"/>
+                        <p:outputLabel value="#{bundle.EditCreditadviceLabel_creditadviceDate}" for="creditadviceDate" />
+                        <p:calendar id="creditadviceDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{creditadviceController.selected.creditadviceDate}" title="#{bundle.EditCreditadviceTitle_creditadviceDate}" required="true" requiredMessage="#{bundle.EditCreditadviceRequiredMessage_creditadviceDate}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditCreditadviceLabel_amount}" for="amount" />
+                        <p:inputText id="amount" value="#{creditadviceController.selected.amount}" title="#{bundle.EditCreditadviceTitle_amount}" required="true" requiredMessage="#{bundle.EditCreditadviceRequiredMessage_amount}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{creditadviceController.update}" value="#{bundle.Save}" update="display,:CreditadviceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CreditadviceEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CreditadviceEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

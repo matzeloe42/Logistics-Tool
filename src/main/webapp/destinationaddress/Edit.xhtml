@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DestinationaddressEditDlg" widgetVar="DestinationaddressEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDestinationaddressTitle}">
+            <h:form id="DestinationaddressEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{destinationaddressController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDestinationaddressLabel_destinationAddressID}" for="destinationAddressID" />
+                        <p:inputText id="destinationAddressID" value="#{destinationaddressController.selected.destinationAddressID}" title="#{bundle.EditDestinationaddressTitle_destinationAddressID}" required="true" requiredMessage="#{bundle.EditDestinationaddressRequiredMessage_destinationAddressID}"/>
+                        <p:outputLabel value="#{bundle.EditDestinationaddressLabel_street}" for="street" />
+                        <p:inputText id="street" value="#{destinationaddressController.selected.street}" title="#{bundle.EditDestinationaddressTitle_street}" required="true" requiredMessage="#{bundle.EditDestinationaddressRequiredMessage_street}"/>
+                        <p:outputLabel value="#{bundle.EditDestinationaddressLabel_housenumber}" for="housenumber" />
+                        <p:inputText id="housenumber" value="#{destinationaddressController.selected.housenumber}" title="#{bundle.EditDestinationaddressTitle_housenumber}" required="true" requiredMessage="#{bundle.EditDestinationaddressRequiredMessage_housenumber}"/>
+                        <p:outputLabel value="#{bundle.EditDestinationaddressLabel_placeZIP}" for="placeZIP" />
+                        <p:selectOneMenu id="placeZIP" value="#{destinationaddressController.selected.placeZIP}" required="true" requiredMessage="#{bundle.EditDestinationaddressRequiredMessage_placeZIP}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{placeController.itemsAvailableSelectOne}"
+                                           var="placeZIPItem"
+                                           itemValue="#{placeZIPItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{destinationaddressController.update}" value="#{bundle.Save}" update="display,:DestinationaddressListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DestinationaddressEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DestinationaddressEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
