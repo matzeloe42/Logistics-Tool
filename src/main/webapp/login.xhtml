@@ -22,7 +22,8 @@
                         <p:inputText id="username" value="#{userdataController.selected.username}" title="#{bundle.CreateUserdataTitle_username}" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_username}"/>
                         <p:outputLabel value="#{bundle.CreateUserdataLabel_password}" for="password" />
                         <p:password id="password" value="#{userdataController.selected.password}" feedback="true" title="#{bundle.CreateUserdataTitle_password}" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_password}"/>
-                    </p:panelGrid>
+                                       </p:panelGrid>
+                    <br/>
                     <p:commandButton actionListener="#{userdataController.create}" value="Registrieren" />
                     <p:commandButton value="Abbrechen" onclick="UserdataCreateForm.hide()" />
                 </h:panelGroup>
