@@ -14,18 +14,17 @@
         </h:head>
 
         <h:body>
-            <h:form id="signinForm" prependId="false">
+            <h:form id="RegisterForm">
                 <p:growl id="growl" showDetail="true" sticky="false" />
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2">
-                        <p:outputLabel value="#{bundle.CreateUserdataLabel_username}" for="username" />
-                        <p:inputText id="username" value="#{signinController.username}" />
-                        <p:outputLabel value="#{bundle.CreateUserdataLabel_password}" for="password" />
-                        <p:password id="password" value="#{signinController.password}"/>
+                        <p:outputLabel value="Benutzer:" />
+                        <p:inputText id="username" value="#{registerController.username}" />
+                        <p:outputLabel value="Passwort" />
+                        <p:password id="password" value="#{registerController.password}" feedback="true" title="#{bundle.CreateUserdataTitle_password}" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_password}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{signinController.find()}" value="Anmelden" update="growl" />
-                    <p:commandButton onclick="window.location.replace('index.xhtml')" value="Zurück" />
-                    <h:message for="signin" />
+                    <p:commandButton actionListener="#{registerController.create()}" value="Registrieren" update="growl" />
+                    <p:commandButton onclick="window.location.replace('../test/test.xhtml')" value="Abbrechen" />
                 </h:panelGroup>
             </h:form>
         </h:body>
