@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view>
+        <h:head>
+            <ui:define name="title">
+                <h:outputText value="Registrieren"></h:outputText>
+            </ui:define>
+        </h:head>
+
+        <h:body>
+            <h:form id="RegisterForm">
+                <p:growl id="growl" showDetail="true" sticky="false" />
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Benutzer:" />
+                        <p:inputText id="username" value="#{registerController.username}" />
+                        <p:outputLabel value="Passwort" />
+                        <p:password id="password" value="#{registerController.password}" feedback="true" title="#{bundle.CreateUserdataTitle_password}" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_password}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{registerController.create()}" value="Registrieren" update="growl" />
+                    <p:commandButton onclick="window.location.replace('index.xhtml')" value="Abbrechen" />
+                </h:panelGroup>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
