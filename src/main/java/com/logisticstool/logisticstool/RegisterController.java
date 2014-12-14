@@ -99,10 +99,7 @@ public class RegisterController implements Serializable
     {
         try
         {
-            if (items == null)
-            {
-                items = getFacade().findAll();
-            }
+            items = getFacade().findAll();
 
             if(validateEntries())
             {
