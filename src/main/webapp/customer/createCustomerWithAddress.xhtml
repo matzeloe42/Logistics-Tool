@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view>
+        <h:head>
+            <ui:define name="title">
+                <h:outputText value="Registrieren"></h:outputText>
+            </ui:define>
+        </h:head>
+            <h:form id="CustomerWithAddressCreateForm">
+                <p:growl id="growl" showDetail="true" sticky="false" />
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Vorname:" />
+                        <p:inputText id="firstName" value="#{customerWithAddressController.customer.firstName}" />
+                        <p:outputLabel value="Nachname:" />
+                        <p:inputText id="lastName" value="#{customerWithAddressController.customer.lastName}"/>
+                        <p:outputLabel value="Strasse:" />
+                        <p:inputText id="street" value="#{customerWithAddressController.address.street}"/>
+                        <p:outputLabel value="Hausnummer:" />
+                        <p:inputText id="housenumber" value="#{customerWithAddressController.address.housenumber}"/>
+                        <p:outputLabel value="PLZ:" />
+                        <p:inputText id="zip" value="#{customerWithAddressController.place.zip}"/>
+                        <p:outputLabel value="Ort:" />
+                        <p:inputText id="place" value="#{customerWithAddressController.place.place}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{customerWithAddressController.create()}" value="Speichern" update="growl" />
+                </h:panelGroup>
+            </h:form>
+    </f:view>
+</html>
