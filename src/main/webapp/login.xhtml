@@ -17,14 +17,14 @@
             <h:form id="UserdataCreateForm">
                 <p:outputLabel id="creationText" />
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{userdataController.selected != null}">
+                    <p:panelGrid columns="2">
                         <p:outputLabel value="#{bundle.CreateUserdataLabel_username}" for="username" />
                         <p:inputText id="username" value="#{userdataController.selected.username}" title="#{bundle.CreateUserdataTitle_username}" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_username}"/>
                         <p:outputLabel value="#{bundle.CreateUserdataLabel_password}" for="password" />
                         <p:password id="password" value="#{userdataController.selected.password}" feedback="true" title="#{bundle.CreateUserdataTitle_password}" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_password}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{userdataController.create}" value="Registrieren" onclick="UserdataCreateForm.hide()"/>
-                    <p:commandButton value="Abbrechen" onclick="UserdataCreateForm.hide()"/>
+                    <p:commandButton actionListener="#{userdataController.create}" value="Registrieren" />
+                    <p:commandButton value="Abbrechen" onclick="UserdataCreateForm.hide()" />
                 </h:panelGroup>
             </h:form>
         </h:body>
