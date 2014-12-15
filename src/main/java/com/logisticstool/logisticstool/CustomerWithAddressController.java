@@ -23,17 +23,27 @@ import javax.faces.convert.FacesConverter;
 public class CustomerWithAddressController implements Serializable
 {
 
+    // Entity Beans
+
     @EJB
     private com.logisticstool.logisticstool.AddressFacade ejbAddressFacade;
     @EJB
     private com.logisticstool.logisticstool.CustomerFacade ejbCustomerFacade;
+    //@EJB
+    //private com.logisticstool.logisticstool.CustomerAddressFacade ejbCustomerAddressFacade;
     @EJB
     private com.logisticstool.logisticstool.PlaceFacade ejbPlaceFacade;
+
+    // Bean List
     private List<Address> addressItems = null;
     private List<Customer> customerItems = null;
     private List<Place> placeItems = null;
+    //private List<CustomerWithAddress> customerWithAddressItems = null;
+
+    // Bean Objects
     private Address address = new Address();
     private Customer customer = new Customer();
+    //private CustomerWithAddress customerWithAddress = new CustomerWithAddress();
     private Place place = new Place();
 
     public CustomerWithAddressController()
@@ -74,7 +84,7 @@ public class CustomerWithAddressController implements Serializable
     {
         return ejbAddressFacade;
     }
-    
+
     private CustomerFacade getCustomerFacade()
     {
         return ejbCustomerFacade;
@@ -157,77 +167,173 @@ public class CustomerWithAddressController implements Serializable
         return getPlaceFacade().findAll();
     }
 
+    /*public List<CustomerWithAddress> getCustomerWithAddressItemsAvailableSelectMany()
+    {
+        return getCustomerWithAllValues();
+    }
+
+    public List<CustomerWithAddress> getCustomerWithAddressItemsAvailableSelectOne()
+    {
+        return getCustomerWithAllValues();
+    }*/
+
     public void create()
     {
         try
         {
-            createPlace();
-            createCustomer();
-            createAddress();
-            
-            FacesMessage m = new FacesMessage
-                                (
-                                    "Anlegung erfolgreich",
-                                    "Kunde " + customer.getFirstName() + " " + customer.getLastName() + " erfolgreich angelegt."
-                                );
-            FacesContext.getCurrentInstance().addMessage("CustomerWithAddressCreateForm", m);
+            if (checkKnownCustomer())
+            {
+                FacesMessage m = new FacesMessage(
+                        "Anlegen fehlgeschlagen.",
+                        "Kunde " + customer.getFirstName() + " " + customer.getLastName() + " bereits bekannt."
+                );
+                FacesContext.getCurrentInstance().addMessage("CustomerWithAddressCreateForm", m);
+            }
+            else
+            {
+                createPlace();
+                createAddress();
+                createCustomer();
+                //createCustomerAddressRelation();
+
+                FacesMessage m = new FacesMessage(
+                        "Anlegung erfolgreich",
+                        "Kunde " + customer.getFirstName() + " " + customer.getLastName() + " erfolgreich angelegt."
+                );
+                FacesContext.getCurrentInstance().addMessage("CustomerWithAddressCreateForm", m);
+            }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
     }
 
+    private boolean checkKnownCustomer()
+    {
+        if (addressCheck() && customerCheck() && placeCheck())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private boolean addressCheck()
+    {
+        boolean isKnown = false;
+        addressItems = getAddressFacade().findAll();
+
+        for (int i = 0; i < addressItems.size(); i++)
+        {
+            if(addressItems.get(i).getStreet().equals(address.getStreet()))
+            {
+                if(addressItems.get(i).getHousenumber().equals(address.getHousenumber()))
+                {
+                    isKnown = true;
+                    i = addressItems.size();
+                }
+            }
+        }
+
+        return isKnown;
+    }
+
+    private boolean customerCheck()
+    {
+        boolean isKnown = false;
+        customerItems = getCustomerFacade().findAll();
+
+        for (int i = 0; i < customerItems.size(); i++)
+        {
+            if(customerItems.get(i).getFirstName().equals(customer.getFirstName()))
+            {
+                if(customerItems.get(i).getLastName().equals(customer.getLastName()))
+                {
+                    isKnown = true;
+                    i = customerItems.size();
+                }
+            }
+        }
+
+        return isKnown;
+    }
+
+    private boolean placeCheck()
+    {
+        boolean isKnown = false;
+        placeItems = getPlaceFacade().findAll();
+
+        for (int i = 0; i < placeItems.size(); i++)
+        {
+            if( placeItems.get(i).getPlace().equals(place.getPlace()))
+            {
+                if(placeItems.get(i).getZip().equals(place.getZip()))
+                {
+                    isKnown = true;
+                    i = customerItems.size();
+                }
+            }
+        }
+
+        return isKnown;
+    }
+
     private void createAddress()
     {
-        if(addressItems == null)
-        {
-            addressItems = getAddressFacade().findAll();
-        }
-        
-        // Abfrage zur Überprüfung der Benutzerdaten vorschalten!
-        if(true)
-        {
-            address.setPlaceZIP(place);
-            if(addressItems.size() == 0)
-            {
-                address.setAddressID(1);
-                getAddressFacade().edit(address);
-            }
-            else
-            {
-                
-            }
-        }
+        address.setPlaceZIP(place);
+        //customerWithAddress.setCustomerAddress(address);
+        getAddressFacade().edit(address);
     }
 
     private void createCustomer()
     {
-        if(customerItems == null)
-        {
-            customerItems = getCustomerFacade().findAll();
-        }
-        
-        // Abfrage zur Überprüfung der Benutzerdaten vorschalten!
-        if(true)
-        {
-            getCustomerFacade().edit(customer);
-        }
+        //customerWithAddress.setCustomer(customer);
+        getCustomerFacade().edit(customer);
     }
 
     private void createPlace()
     {
-        if(placeItems == null)
+        if(placeCheck() == false)
         {
-            placeItems = getPlaceFacade().findAll();
-        }
-        
-        // Abfrage zur Überprüfung der Benutzerdaten vorschalten!
-        if(true)
-        {
+            //customerWithAddress.setCustomerPlace(place);
             getPlaceFacade().edit(place);
         }
     }
+
+    /*private void createCustomerAddressRelation()
+    {
+        List<Address> addressList = getAddressFacade().findAll();
+        List<Customer> customerList = getCustomerFacade().findAll();        
+
+        for (int i = 0; i < customerList.size(); i++)
+        {
+            if  (
+                    customerList.get(i).getFirstName().equals(customerWithAddress.getCustomer().getFirstName()) &&
+                    customerList.get(i).getLastName().equals(customerWithAddress.getCustomer().getLastName())
+                )
+            {
+                for(int j = 0; j < addressList.size(); j++)
+                {
+                    if  (
+                            addressList.get(j).getHousenumber().equals(customerWithAddress.getCustomerAddress().getHousenumber()) &&
+                            addressList.get(j).getPlaceZIP().getZip().equals(customerWithAddress.getCustomerPlace().getZip()) &&
+                            addressList.get(j).getStreet().equals(customerWithAddress.getCustomerAddress().getStreet())
+                        )
+                    {
+                        CustomerAddress customerAddress = new CustomerAddress();
+                        customerAddress.setAddressID(addressList.get(j).getAddressID());
+                        customerAddress.setCustomerID(customerList.get(i).getCustomerID());
+                        
+                        ejbCustomerAddressFacade.edit(customerAddress);
+                    }
+                }
+            }
+
+        }
+    }*/
 
     public void update()
     {
@@ -238,4 +344,17 @@ public class CustomerWithAddressController implements Serializable
     {
         //
     }
+
+/*    private List<CustomerWithAddress> getCustomerWithAllValues()
+    {
+        List<Customer> allCustomers = getCustomerItemsAvailableSelectMany();
+        List<CustomerAddress> allCustomerAddresses = ejbCustomerAddressFacade.findAll();
+
+        for (int i = 0; i < allCustomers.size(); i++)
+        {
+
+        }
+
+        return null;
+    }*/
 }
