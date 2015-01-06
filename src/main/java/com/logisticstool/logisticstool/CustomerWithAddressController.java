@@ -303,7 +303,7 @@ public class CustomerWithAddressController implements Serializable
         }
     }
 
-    /*private void createCustomerAddressRelation()
+/*    private void createCustomerAddressRelation()
     {
         List<Address> addressList = getAddressFacade().findAll();
         List<Customer> customerList = getCustomerFacade().findAll();        
@@ -311,16 +311,21 @@ public class CustomerWithAddressController implements Serializable
         for (int i = 0; i < customerList.size(); i++)
         {
             if  (
-                    customerList.get(i).getFirstName().equals(customerWithAddress.getCustomer().getFirstName()) &&
-                    customerList.get(i).getLastName().equals(customerWithAddress.getCustomer().getLastName())
+                    //customerList.get(i).getFirstName().equals(customerWithAddress.getCustomer().getFirstName()) &&
+                    //customerList.get(i).getLastName().equals(customerWithAddress.getCustomer().getLastName())
+                    customerList.get(i).getFirstName().equals(customer.getFirstName()) &&
+                    customerList.get(i).getLastName().equals(customer.getLastName())
                 )
             {
                 for(int j = 0; j < addressList.size(); j++)
                 {
                     if  (
-                            addressList.get(j).getHousenumber().equals(customerWithAddress.getCustomerAddress().getHousenumber()) &&
-                            addressList.get(j).getPlaceZIP().getZip().equals(customerWithAddress.getCustomerPlace().getZip()) &&
-                            addressList.get(j).getStreet().equals(customerWithAddress.getCustomerAddress().getStreet())
+                            //addressList.get(j).getHousenumber().equals(customerWithAddress.getCustomerAddress().getHousenumber()) &&
+                            //addressList.get(j).getPlaceZIP().getZip().equals(customerWithAddress.getCustomerPlace().getZip()) &&
+                            //addressList.get(j).getStreet().equals(customerWithAddress.getCustomerAddress().getStreet())
+                            addressList.get(j).getHousenumber().equals(address.getHousenumber()) &&
+                            addressList.get(j).getPlaceZIP().getZip().equals(address.getPlaceZIP().getZip()) &&
+                            addressList.get(j).getStreet().equals(address.getStreet())
                         )
                     {
                         CustomerAddress customerAddress = new CustomerAddress();
