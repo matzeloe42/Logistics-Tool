@@ -1,22 +1,14 @@
 package com.logisticstool.logisticstool;
 
-import com.logisticstool.logisticstool.util.JsfUtil;
-import com.logisticstool.logisticstool.util.JsfUtil.PersistAction;
-
+import javax.faces.event.ActionEvent;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
 
 @Named("signinController")
 @SessionScoped
@@ -28,9 +20,11 @@ public class SigninController implements Serializable
     private com.logisticstool.logisticstool.UserdataFacade ejbFacade;
     private List<Userdata> items = null;
     private Userdata selected;
-
+    
     private String username;
     private String password;
+
+    FacesContext context = FacesContext.getCurrentInstance();
 
     public SigninController()
     {
@@ -95,10 +89,13 @@ public class SigninController implements Serializable
         return items;
     }
 
-    public void find()
+    public void loginControl(ActionEvent event)
     {
         try
         {
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            FacesMessage message = null;
+            boolean loggedIn = false;
             if (items == null)
             {
                 items = getFacade().findAll();
@@ -106,24 +103,22 @@ public class SigninController implements Serializable
 
             if(validateEntries())
             {
-                FacesMessage m = new FacesMessage
-                                (
-                                    "Sie haben sich erfolgreich angemeldet!",
-                                    "Sie sind angemeldet als: " + username
-                                );
-                FacesContext.getCurrentInstance().addMessage("signinForm", m);
+                loggedIn = true;
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Willkommen ", username);
             }
+            else
+            {
+                loggedIn = false;
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Anmelden fehlgeschlagen.", "Benutzername / Passwort ungültig.");
+            }
+            
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            requestContext.addCallbackParam("loggedIn", loggedIn);
         }
         catch(Exception e)
         {
-            e.printStackTrace();
-            FacesMessage m = new FacesMessage
-                                (
-                                    FacesMessage.SEVERITY_WARN,
-                                    e.getMessage(),
-                                    e.getCause().getMessage()
-                                );
-            FacesContext.getCurrentInstance().addMessage("signinForm", m);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Ausnahmefehler aufgetreten.", "Ungültige Eingaben.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
 
@@ -137,11 +132,14 @@ public class SigninController implements Serializable
                 if(items.get(i).getPassword().equals(password))
                 {
                     request = true;
-                    i = items.size();
+                    Userdata user = new Userdata(items.get(i).getUserDataID(), items.get(i).getUsername(), items.get(i).getPassword());
+                    setSelected(user);
+                    //context.getExternalContext().getSessionMap().put(selected.getUsername(), user);
+                    break;
                 }
             }
         }
         
         return request;
-    }
+    }    
 }

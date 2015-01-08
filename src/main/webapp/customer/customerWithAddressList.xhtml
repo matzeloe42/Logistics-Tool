@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Kundenliste"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="CustomerWithAddressListForm">
+                <p:panel header="Kundenliste">
+                    <p:dataTable id="datalist" value="#{customerWithAddressController.customerItems}" var="item"
+                                 selectionMode="single" selection="#{customerWithAddressController.customer}"
+                                 paginator="true"
+                                 rowKey="#{item.customerID}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{customerWithAddressController.customer.customerID}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.customerID}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{customerWithAddressController.customer.firstName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.firstName}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{customerWithAddressController.customer.lastName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lastName}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

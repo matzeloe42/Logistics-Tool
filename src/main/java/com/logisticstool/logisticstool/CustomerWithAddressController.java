@@ -1,22 +1,12 @@
 package com.logisticstool.logisticstool;
 
-import com.logisticstool.logisticstool.util.JsfUtil;
-import com.logisticstool.logisticstool.util.JsfUtil.PersistAction;
-
 import java.io.Serializable;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
 
 @Named("customerWithAddressController")
 @SessionScoped
@@ -24,13 +14,19 @@ public class CustomerWithAddressController implements Serializable
 {
 
     // Entity Beans
-
+    /*    
+    @EJB
+    private com.logisticstool.logisticstool.CustomerAddressFacade ejbCustomerAddressFacade;
+    
+    private CustomerAddressFacade getCustomerAddressFacade()
+    {
+        return ejbCustomerAddressFacade;
+    }*/
+    
     @EJB
     private com.logisticstool.logisticstool.AddressFacade ejbAddressFacade;
     @EJB
     private com.logisticstool.logisticstool.CustomerFacade ejbCustomerFacade;
-    //@EJB
-    //private com.logisticstool.logisticstool.CustomerAddressFacade ejbCustomerAddressFacade;
     @EJB
     private com.logisticstool.logisticstool.PlaceFacade ejbPlaceFacade;
 
@@ -38,12 +34,10 @@ public class CustomerWithAddressController implements Serializable
     private List<Address> addressItems = null;
     private List<Customer> customerItems = null;
     private List<Place> placeItems = null;
-    //private List<CustomerWithAddress> customerWithAddressItems = null;
 
     // Bean Objects
     private Address address = new Address();
     private Customer customer = new Customer();
-    //private CustomerWithAddress customerWithAddress = new CustomerWithAddress();
     private Place place = new Place();
 
     public CustomerWithAddressController()
@@ -109,9 +103,51 @@ public class CustomerWithAddressController implements Serializable
         if (customerItems == null)
         {
             customerItems = getCustomerFacade().findAll();
+            //customerItems = filterCustomerItemsByCustomerAddress();
         }
         return customerItems;
     }
+
+    /*
+    private List<Customer> filterCustomerItemsByCustomerAddress()
+    {
+        List<Customer> customersFromDB = new ArrayList();
+        List<CustomerAddress> customerAddressesFromDB = getCustomerAddressFacade().findAll();
+        List<Address> addressesFromDB = getAddressFacade().findAll();
+        
+        for(int i = 0; i < customerItems.size(); i++)
+        {
+            Customer customerToAdd = customerItems.get(i);
+            for(int j = 0; j < addressesFromDB.size(); j++)
+            {
+                for(int x = 0; x < customerAddressesFromDB.size(); x++)
+                {
+                    if
+                    (
+                        customerAddressesFromDB.get(x).getAddressID() == addressesFromDB.get(j).getAddressID() &&
+                        customerAddressesFromDB.get(x).getCustomerID() == customerToAdd.getCustomerID()
+                    )
+                    {
+                        HashSet<Address> customerAddressesToAdd;
+                        if(customerToAdd.getCustomerAddress().isEmpty())
+                        {
+                            customerAddressesToAdd = new HashSet();
+                        }
+                        else
+                        {
+                            customerAddressesToAdd = (HashSet) customerToAdd.getCustomerAddress();
+                        }
+                        customerAddressesToAdd.add(addressesFromDB.get(j));
+                        customerToAdd.setCustomerAddress(customerAddressesToAdd);
+                        
+                        customersFromDB.add(customerToAdd);
+                    }
+                }
+            }
+        }
+        
+        return customersFromDB;
+    }*/
 
     public List<Place> getPlaceItems()
     {
@@ -167,16 +203,6 @@ public class CustomerWithAddressController implements Serializable
         return getPlaceFacade().findAll();
     }
 
-    /*public List<CustomerWithAddress> getCustomerWithAddressItemsAvailableSelectMany()
-    {
-        return getCustomerWithAllValues();
-    }
-
-    public List<CustomerWithAddress> getCustomerWithAddressItemsAvailableSelectOne()
-    {
-        return getCustomerWithAllValues();
-    }*/
-
     public void create()
     {
         try
@@ -194,7 +220,6 @@ public class CustomerWithAddressController implements Serializable
                 createPlace();
                 createAddress();
                 createCustomer();
-                //createCustomerAddressRelation();
 
                 FacesMessage m = new FacesMessage(
                         "Anlegung erfolgreich",
@@ -218,6 +243,28 @@ public class CustomerWithAddressController implements Serializable
         else
         {
             return false;
+        }
+    }
+
+    private void createAddress()
+    {
+        address.setPlaceZIP(place);
+    }
+
+    private void createCustomer()
+    {
+        if(customer.getHabitation() == null)
+        {
+            customer.habitate(address);
+        }
+        getCustomerFacade().edit(customer);
+    }
+
+    private void createPlace()
+    {
+        if(placeCheck())
+        {
+            getPlaceFacade().edit(place);
         }
     }
 
@@ -245,16 +292,18 @@ public class CustomerWithAddressController implements Serializable
     {
         boolean isKnown = false;
         customerItems = getCustomerFacade().findAll();
+        int customerItemsCount = customerItems.size();
 
-        for (int i = 0; i < customerItems.size(); i++)
+        for (int i = 0; i < customerItemsCount; i++)
         {
-            if(customerItems.get(i).getFirstName().equals(customer.getFirstName()))
+            if
+                (
+                    customerItems.get(i).getFirstName().equals(customer.getFirstName()) &&
+                    customerItems.get(i).getLastName().equals(customer.getLastName())
+                )
             {
-                if(customerItems.get(i).getLastName().equals(customer.getLastName()))
-                {
-                    isKnown = true;
-                    i = customerItems.size();
-                }
+                isKnown = true;
+                i = customerItemsCount;
             }
         }
 
@@ -265,80 +314,23 @@ public class CustomerWithAddressController implements Serializable
     {
         boolean isKnown = false;
         placeItems = getPlaceFacade().findAll();
+        int placeItemsCount = placeItems.size();
 
-        for (int i = 0; i < placeItems.size(); i++)
+        for (int i = 0; i < placeItemsCount; i++)
         {
-            if( placeItems.get(i).getPlace().equals(place.getPlace()))
+            if
+                (
+                    placeItems.get(i).getPlace().equals(place.getPlace()) &&
+                    placeItems.get(i).getZip().equals(place.getZip())
+                )
             {
-                if(placeItems.get(i).getZip().equals(place.getZip()))
-                {
                     isKnown = true;
-                    i = customerItems.size();
-                }
+                    i = placeItemsCount;
             }
         }
 
         return isKnown;
     }
-
-    private void createAddress()
-    {
-        address.setPlaceZIP(place);
-        //customerWithAddress.setCustomerAddress(address);
-        getAddressFacade().edit(address);
-    }
-
-    private void createCustomer()
-    {
-        //customerWithAddress.setCustomer(customer);
-        getCustomerFacade().edit(customer);
-    }
-
-    private void createPlace()
-    {
-        if(placeCheck() == false)
-        {
-            //customerWithAddress.setCustomerPlace(place);
-            getPlaceFacade().edit(place);
-        }
-    }
-
-/*    private void createCustomerAddressRelation()
-    {
-        List<Address> addressList = getAddressFacade().findAll();
-        List<Customer> customerList = getCustomerFacade().findAll();        
-
-        for (int i = 0; i < customerList.size(); i++)
-        {
-            if  (
-                    //customerList.get(i).getFirstName().equals(customerWithAddress.getCustomer().getFirstName()) &&
-                    //customerList.get(i).getLastName().equals(customerWithAddress.getCustomer().getLastName())
-                    customerList.get(i).getFirstName().equals(customer.getFirstName()) &&
-                    customerList.get(i).getLastName().equals(customer.getLastName())
-                )
-            {
-                for(int j = 0; j < addressList.size(); j++)
-                {
-                    if  (
-                            //addressList.get(j).getHousenumber().equals(customerWithAddress.getCustomerAddress().getHousenumber()) &&
-                            //addressList.get(j).getPlaceZIP().getZip().equals(customerWithAddress.getCustomerPlace().getZip()) &&
-                            //addressList.get(j).getStreet().equals(customerWithAddress.getCustomerAddress().getStreet())
-                            addressList.get(j).getHousenumber().equals(address.getHousenumber()) &&
-                            addressList.get(j).getPlaceZIP().getZip().equals(address.getPlaceZIP().getZip()) &&
-                            addressList.get(j).getStreet().equals(address.getStreet())
-                        )
-                    {
-                        CustomerAddress customerAddress = new CustomerAddress();
-                        customerAddress.setAddressID(addressList.get(j).getAddressID());
-                        customerAddress.setCustomerID(customerList.get(i).getCustomerID());
-                        
-                        ejbCustomerAddressFacade.edit(customerAddress);
-                    }
-                }
-            }
-
-        }
-    }*/
 
     public void update()
     {
@@ -350,16 +342,4 @@ public class CustomerWithAddressController implements Serializable
         //
     }
 
-/*    private List<CustomerWithAddress> getCustomerWithAllValues()
-    {
-        List<Customer> allCustomers = getCustomerItemsAvailableSelectMany();
-        List<CustomerAddress> allCustomerAddresses = ejbCustomerAddressFacade.findAll();
-
-        for (int i = 0; i < allCustomers.size(); i++)
-        {
-
-        }
-
-        return null;
-    }*/
 }

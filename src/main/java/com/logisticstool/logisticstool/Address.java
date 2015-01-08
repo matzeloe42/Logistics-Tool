@@ -6,7 +6,7 @@
 package com.logisticstool.logisticstool;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -23,7 +22,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -57,18 +55,11 @@ public class Address implements Serializable
     @Size(min = 1, max = 10)
     @Column(name = "Housenumber")
     private String housenumber;
-    @JoinTable(name = "customeraddress", joinColumns =
-    {
-        @JoinColumn(name = "Address_AddressID", referencedColumnName = "AddressID")
-    }, inverseJoinColumns =
-    {
-        @JoinColumn(name = "Customer_CustomerID", referencedColumnName = "CustomerID")
-    })
-    @ManyToMany
-    private Collection<Customer> customerCollection;
     @JoinColumn(name = "Place_ZIP", referencedColumnName = "ZIP")
     @ManyToOne(optional = false)
     private Place placeZIP;
+    @ManyToMany(mappedBy="habitation")
+    private Set<Customer> customers;
 
     public Address()
     {
@@ -116,17 +107,6 @@ public class Address implements Serializable
         this.housenumber = housenumber;
     }
 
-    @XmlTransient
-    public Collection<Customer> getCustomerCollection()
-    {
-        return customerCollection;
-    }
-
-    public void setCustomerCollection(Collection<Customer> customerCollection)
-    {
-        this.customerCollection = customerCollection;
-    }
-
     public Place getPlaceZIP()
     {
         return placeZIP;
@@ -135,6 +115,16 @@ public class Address implements Serializable
     public void setPlaceZIP(Place placeZIP)
     {
         this.placeZIP = placeZIP;
+    }
+    
+    public Set<Customer> getCustomers()
+    {
+        return customers;
+    }
+    
+    public void setCustomers(Set<Customer> customers)
+    {
+        this.customers = customers;
     }
 
     @Override
@@ -166,5 +156,5 @@ public class Address implements Serializable
     {
         return "com.logisticstool.logisticstool.Address[ addressID=" + addressID + " ]";
     }
-    
+
 }

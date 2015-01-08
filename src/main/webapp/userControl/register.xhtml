@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Startseite</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form id="formBody">
+                <p:layout fullPage="true">
+                    <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                        Header
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                        Footer
+                    </p:layoutUnit>
+                    <p:layoutUnit position="west" size="175" header="Navigationsmenü" collapsible="true">
+                        <p:menu>
+                            <p:submenu label="Resources">
+                                <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
+                                <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
+                                <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                                <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                            </p:submenu>
+                            <p:submenu label="Tests">
+                                <p:menuitem value="Test" outcome="test/test.xhtml" icon="ui-icon-star" />
+                            </p:submenu>
+                        </p:menu>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">                        
+                        <h:form id="RegisterForm">
+                            <p:growl id="loginStatus" showDetail="true" sticky="false" />
+                            <h:panelGroup id="display">
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Benutzer:" />
+                                    <p:inputText id="username" value="#{registerController.username}" />
+                                    <p:outputLabel value="Passwort" />
+                                    <p:password id="password" value="#{registerController.password}" feedback="true" title="#{bundle.CreateUserdataTitle_password}" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_password}"/>
+                                </p:panelGrid>
+                                <p:commandButton actionListener="#{registerController.create()}" value="Registrieren" update="loginStatus" />
+                                <p:commandButton onclick="window.location.replace('index.xhtml')" value="Abbrechen" />
+                            </h:panelGroup>
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+

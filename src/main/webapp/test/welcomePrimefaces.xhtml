@@ -9,8 +9,9 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <script type="text/javascript" src="javascript/startpageOnLoad.js"></script>
                 <script type="text/javascript" src="javascript/showRegisterForm.js"></script>
+                <script type="text/javascript" src="javascript/showLoggedInUser.js"></script>
+                <script type="text/javascript" src="javascript/startpageOnLoad.js"></script>
                 <title>PrimeFaces</title>
             </f:facet>
         </h:head>
@@ -30,19 +31,16 @@
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
                     <p:menu>
                         <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-
+                            <p:menuitem value="Startseite" outcome="/index.xhtml" />
                         </p:submenu>
 
                     </p:menu>
                 </p:layoutUnit>
-
                 <p:layoutUnit position="center">
-                    <h:form id="registerForm">
-                        <p:growl id="growl" showDetail="true" sticky="false" />
+                    <h:form id="welcomeUserTest">
+                        <h:outputLabel id="welcomeTest" value="Guten Tag, #{signinController.username}."></h:outputLabel>
+                    </h:form>
+                    <h:form id="registerFormTest">
                         <h:panelGroup id="display">
                             <p:panelGrid columns="2">
                                 <p:outputLabel value="Benutzer:" />
@@ -50,12 +48,15 @@
                                 <p:outputLabel value="Passwort" />
                                 <p:password id="password" value="#{registerController.password}" feedback="true" title="#{bundle.CreateUserdataTitle_password}" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_password}"/>
                             </p:panelGrid>
-                            <p:commandButton actionListener="#{registerController.create()}" value="Registrieren" update="growl" />
-                            <p:commandButton onclick="window.location.reload()" value="Abbrechen" />
+                            <h:form>
+                                <p:commandButton actionListener="#{registerController.create()}" value="Registrieren" update="growl" />
+                            </h:form>
+                            <h:form>
+                                <p:commandButton onclick="window.location.reload()" value="Abbrechen" />
+                            </h:form>
                         </h:panelGroup>
                     </h:form>
                     <h:form id="signinForm" prependId="false">
-                        <p:growl id="growl" showDetail="true" sticky="false" />
                         <h:panelGroup id="display">
                             <p:panelGrid columns="2">
                                 <p:outputLabel value="#{bundle.CreateUserdataLabel_username}" for="username" />
@@ -63,9 +64,13 @@
                                 <p:outputLabel value="#{bundle.CreateUserdataLabel_password}" for="password" />
                                 <p:password id="password" value="#{signinController.password}"/>
                             </p:panelGrid>
-                            <p:commandButton actionListener="#{signinController.find()}" value="Anmelden" update="growl" />
-                            <p:commandButton onclick="javascript:showRegisterForm()" value="Registrieren" />
-                            <h:message for="signin" />
+                            <h:form>
+                                <p:commandButton actionListener="#{signinController.loginControl()}" onclick="javascript:showWelcomeUser()" value="Anmelden" update="growl" />
+                            </h:form>
+                            <h:form>
+                                <p:commandButton onclick="javascript:showRegisterForm()" value="Registrieren" />
+                            </h:form>
+                            <h:message for="signinForm" />
                         </h:panelGroup>
                     </h:form>
                 </p:layoutUnit>

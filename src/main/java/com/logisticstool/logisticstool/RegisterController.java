@@ -17,6 +17,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.context.RequestContext;
 
 @Named("registerController")
 @SessionScoped
@@ -99,32 +100,43 @@ public class RegisterController implements Serializable
     {
         try
         {
+            RequestContext context = RequestContext.getCurrentInstance();
+            FacesMessage message = null;
+            boolean registered = false;
             items = getFacade().findAll();
 
             if(validateEntries())
             {
-                FacesMessage m = new FacesMessage
+                registered = false;
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Fehler", "Benutzername bereits vorhanden.");
+                /*FacesMessage m = new FacesMessage
                                 (
                                     "Benutzer bereits vorhanden!",
                                     "Bitte verwenden Sie einen anderen Benutzernamen."
                                 );
-                FacesContext.getCurrentInstance().addMessage("RegisterForm", m);
+                FacesContext.getCurrentInstance().addMessage("RegisterForm", m);*/
             }
             else
             {
-                FacesMessage m = new FacesMessage
+                /*FacesMessage m = new FacesMessage
                                 (
                                     "Erfolgreich registriert.",
                                     "Benutzer '" + username + "' erfolgreich angelegt."
                                 );
-                FacesContext.getCurrentInstance().addMessage("RegisterForm", m);
+                FacesContext.getCurrentInstance().addMessage("RegisterForm", m);*/
                 
                 Userdata newUser = new Userdata();
                 newUser.setUsername(username);
                 newUser.setPassword(password);
                 
                 getFacade().edit(newUser);
+                
+                registered = true;
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registrierung erfolgreich!", username);
             }
+            
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            context.addCallbackParam("loggedIn", registered);
         }
         catch(Exception e)
         {

@@ -30,6 +30,7 @@
                         <p:inputText id="place" value="#{customerWithAddressController.place.place}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{customerWithAddressController.create()}" value="Speichern" update="growl" />
+                    <p:commandButton onclick="window.location.replace('../test/test.xhtml')" value="Zurück" />
                 </h:panelGroup>
             </h:form>
     </f:view>

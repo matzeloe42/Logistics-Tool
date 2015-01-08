@@ -7,6 +7,7 @@ package com.logisticstool.logisticstool;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.*;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -56,8 +59,31 @@ public class Customer implements Serializable
     @Size(min = 1, max = 60)
     @Column(name = "LastName")
     private String lastName;
+
+    /*
     @ManyToMany(mappedBy = "customerCollection")
     private Collection<Address> addressCollection;
+    */
+    @ManyToMany
+    @JoinTable
+    (
+        schema = "LogisticsToolDB",
+        name = "CustomerAddress",
+        joinColumns =
+            @JoinColumn
+            (
+                name = "Customer_CustomerID",
+                referencedColumnName = "CustomerID"
+            ),
+        inverseJoinColumns =
+            @JoinColumn
+            (
+                name = "Address_AddressID",
+                referencedColumnName = "AddressID"
+            )
+    )
+    private Set<Address> habitation;
+    
     @ManyToMany(mappedBy = "customerCollection")
     private Collection<Creditadvice> creditadviceCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerCustomerID")
@@ -109,16 +135,36 @@ public class Customer implements Serializable
         this.lastName = lastName;
     }
 
-    @XmlTransient
-    public Collection<Address> getAddressCollection()
+    public Set<Address> getHabitation()
     {
-        return addressCollection;
+        return habitation;
     }
 
-    public void setAddressCollection(Collection<Address> addressCollection)
+    public void setHabitation(Set<Address> customerAddress)
     {
-        this.addressCollection = addressCollection;
+        this.habitation = customerAddress;
     }
+
+    public void habitate(Address address)
+    {
+        if(this.habitation == null)
+        {
+            this.habitation = new HashSet();
+        }
+        this.habitation.add(address);
+        
+        if(address.getCustomers() == null)
+        {
+            address.setCustomers(new HashSet());
+        }
+        address.getCustomers().add(this);
+    }
+    /*
+    public Address getFirstAddress()
+    {
+        List<Address> addressList = this.customerAddress;
+        return addressList.get(0);
+    }*/
 
     @XmlTransient
     public Collection<Creditadvice> getCreditadviceCollection()

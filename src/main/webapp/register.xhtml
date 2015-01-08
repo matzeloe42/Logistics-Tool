@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog header="Registrieren" widgetVar="registerDialog" resizable="false">
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Benutzername:" />
+                <p:inputText id="registerUsername" value="#{registerController.username}" />
+                
+                <p:outputLabel value="Passwort:" />
+                <p:password id="registerPassword1" value="#{registerController.password}" feedback="true" title="#{bundle.CreateUserdataTitle_password}" match="registerPassword2" label="registerPassword1" required="true" requiredMessage="#{bundle.CreateUserdataRequiredMessage_password}"/>
+                
+                <p:outputLabel value="Passwort bestätigen:" />
+                <p:password id="registerPassword2" value="#{registerController.password}" feedback="true" title="#{bundle.CreateUserdataTitle_password}" required="true" label="registerPassword2" requiredMessage="#{bundle.CreateUserdataRequiredMessage_password}"/>
+                
+                
+                <f:facet name="footer">
+                    <p:commandButton actionListener="#{registerController.create()}" value="Registrieren" update="statusGrowl" oncomplete="handleLoginRequest(xhr, status, args, 'registerDialog')" />
+                    <p:commandButton onclick="window.location.reload()" value="Abbrechen" />    
+                </f:facet>
+            </p:panelGrid>
+        </p:dialog>
+    </ui:composition>
+</html>
+
