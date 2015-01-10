@@ -80,9 +80,9 @@
             <version>1.4.11</version>
         </dependency>
         <dependency>
-            <groupId>org.glassfish.deployment</groupId>
+            <groupId>org.glassfish.main.deployment</groupId>
             <artifactId>deployment-client</artifactId>
-            <version>10.0-b28</version>
+            <version>4.1</version>
         </dependency>
     </dependencies>
     
