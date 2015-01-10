@@ -115,7 +115,7 @@
                 <version>1.4.11</version>
                 <configuration>
                     <container>
-                        <containerId>glassfish41</containerId>
+                        <containerId>glassfish3x</containerId>
                         <type>remote</type>
                     </container>
                     <configuration>
