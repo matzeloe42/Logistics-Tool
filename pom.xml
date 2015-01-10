@@ -14,6 +14,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
+    <pluginRepositories>
+        <pluginRepository>
+            <id>glassfish</id>
+            <url>http://download.java.net/maven/glassfish</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <repositories>
+        <repository>
+            <url>http://repository.primefaces.org/</url>
+            <id>PrimeFaces-maven-lib</id>
+            <layout>default</layout>
+            <name>Repository for library PrimeFaces-maven-lib</name>
+        </repository>
+        <repository>
+            <id>glassfish</id>
+            <url>http://download.java.net/maven/glassfish</url>
+        </repository>
+    </repositories>
+    
     <dependencies>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -61,7 +80,7 @@
             <version>10.0-b28</version>
         </dependency>
     </dependencies>
-
+    
     <build>
         <plugins>
             <plugin>
@@ -115,7 +134,7 @@
                 <version>1.4.11</version>
                 <configuration>
                     <container>
-                        <containerId>glassfish3x</containerId>
+                        <containerId>glassfish4x</containerId>
                         <type>remote</type>
                     </container>
                     <configuration>
@@ -142,16 +161,4 @@
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <url>http://repository.primefaces.org/</url>
-            <id>PrimeFaces-maven-lib</id>
-            <layout>default</layout>
-            <name>Repository for library PrimeFaces-maven-lib</name>
-        </repository>
-        <repository>
-            <id>glassfish</id>
-            <url>http://download.java.net/maven/glassfish</url>
-        </repository>
-    </repositories>
 </project>
