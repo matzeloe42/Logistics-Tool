@@ -52,8 +52,13 @@
         </dependency>
         <dependency>
             <groupId>org.codehaus.cargo</groupId>
-            <artifactId>cargo-core-uberjar</artifactId>
+            <artifactId>cargo-maven2-plugin</artifactId>
             <version>1.4.11</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.deployment</groupId>
+            <artifactId>dol</artifactId>
+            <version>10.0-b28</version>
         </dependency>
     </dependencies>
 
@@ -134,13 +139,6 @@
                         </deployable>
                     </deployables>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.glassfish.deployment</groupId>
-                        <artifactId>dol</artifactId>
-                        <version>10.0-b28</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
