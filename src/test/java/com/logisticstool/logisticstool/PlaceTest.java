@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.logisticstool.logisticstool;
 
 import java.util.ArrayList;
@@ -13,15 +8,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
- * @author Matze
+ * @author Matthias
  */
 public class PlaceTest
 {
-    private static Place place;
+    private static Place _place;
     
     public PlaceTest()
     {
@@ -30,7 +24,7 @@ public class PlaceTest
     @BeforeClass
     public static void setUpClass()
     {
-        place = new Place();
+        _place = new Place();
     }
     
     @AfterClass
@@ -53,52 +47,52 @@ public class PlaceTest
     public void testConstructor1()
     {
         Place place = new Place();
-        Assert.assertTrue("korrekter Konstruktor", place != null);
+        Assert.assertTrue("correct Constructor", place != null);
     }
     
     @Test
     public void testConstructor2()
     {
         Place place = new Place(12345);
-        Assert.assertTrue("korrekte PLZ", place.getZip() == 12345);
+        Assert.assertTrue("correct ZIP", place.getZip() == 12345);
     }
     
     public void testConstructor3()
     {
         Place place = new Place(12345, "Musterstadt");
-        Assert.assertTrue("korrekte PLZ", place.getZip() == 12345);
-        Assert.assertTrue("korrekte Stadt", place.getPlace().equals("Musterstadt"));
+        Assert.assertTrue("correct ZIP", place.getZip() == 12345);
+        Assert.assertTrue("correct Place", place.getPlace().equals("Musterstadt"));
     }
     
     /* get und set ---------------------------------------------------------- */
     @Test
     public void testSetPlace()
     {
-        place.setPlace("Musterstadt");
-        Assert.assertEquals(place.getPlace(), "Musterstadt");
+        _place.setPlace("Musterstadt");
+        Assert.assertEquals(_place.getPlace(), "Musterstadt");
     }
 
     @Test
     public void testSetAddressCollection()
     {
         Collection<Address> addressCollection = new ArrayList();
-        place.setAddressCollection(addressCollection);
-        Assert.assertEquals(true, place.getAddressCollection().containsAll(addressCollection));
+        _place.setAddressCollection(addressCollection);
+        Assert.assertEquals(true, _place.getAddressCollection().containsAll(addressCollection));
     }
     
     @Test
     public void testSetStartaddressCollection()
     {
         Collection<Startaddress> startaddressCollection = new ArrayList();
-        place.setStartaddressCollection(startaddressCollection);
-        Assert.assertEquals(true, place.getStartaddressCollection().containsAll(startaddressCollection));
+        _place.setStartaddressCollection(startaddressCollection);
+        Assert.assertEquals(true, _place.getStartaddressCollection().containsAll(startaddressCollection));
     }
     
     @Test
     public void testSetDestinationaddressCollection()
     {
         Collection<Destinationaddress> destinationaddressCollection = new ArrayList();
-        place.setDestinationaddressCollection(destinationaddressCollection);
-        Assert.assertEquals(true, place.getDestinationaddressCollection().containsAll(destinationaddressCollection));
+        _place.setDestinationaddressCollection(destinationaddressCollection);
+        Assert.assertEquals(true, _place.getDestinationaddressCollection().containsAll(destinationaddressCollection));
     }
 }
