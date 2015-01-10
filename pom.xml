@@ -55,11 +55,6 @@
             <artifactId>cargo-core-uberjar</artifactId>
             <version>1.4.11</version>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.deployment</groupId>
-            <artifactId>deployment-client</artifactId>
-            <version>3.0.1</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -139,6 +134,13 @@
                         </deployable>
                     </deployables>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.glassfish.deployment</groupId>
+                        <artifactId>dol</artifactId>
+                        <version>10.0-b28</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -154,10 +156,4 @@
             <url>http://download.java.net/maven/glassfish</url>
         </repository>
     </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>glassfish</id>
-            <url>http://download.java.net/maven/glassfish</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>
