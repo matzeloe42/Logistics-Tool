@@ -79,11 +79,6 @@
             <artifactId>cargo-maven2-plugin</artifactId>
             <version>1.4.11</version>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.main.deployment</groupId>
-            <artifactId>deployment-client</artifactId>
-            <version>4.1</version>
-        </dependency>
     </dependencies>
     
     <build>
@@ -163,6 +158,13 @@
                         </deployable>
                     </deployables>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.glassfish.main.deployment</groupId>
+                        <artifactId>deployment-client</artifactId>
+                        <version>4.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
