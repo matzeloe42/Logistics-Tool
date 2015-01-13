@@ -3,23 +3,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
 
-    <script type="text/javascript">
-        function handleLoginRequest(xhr, status, args, dialog) {
-            if(args.validationFailed || !args.loggedIn) {
-                PF(dialog).jq.effect("shake", {times:5}, 100);
-            }
-            else {
-                PF(dialog).hide();
-                $('#loginLink').fadeOut();
-            }
-        }
-    </script>
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <script type="text/javascript" src="javascript/handleLoginRequest.js" />
                 <title>Startseite</title>
             </f:facet>
         </h:head>
@@ -27,34 +18,36 @@
         <h:body>
             <h:form id="formBody">
                 <p:layout fullPage="true">
-                    <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                        Header
+                    <p:layoutUnit position="north" size="150" resizable="false" closable="true" collapsible="true">
+                        Logistics Tool
+                        <p:graphicImage value="Images/LT_Symbol.jpg" />
                     </p:layoutUnit>
                     <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                        Footer
+                        © 2015 - Logistics Tool GmbH
                     </p:layoutUnit>
-                    <p:layoutUnit position="west" size="175" header="Navigationsmenü" collapsible="true">
+                    <p:layoutUnit position="west" size="175" header="Navigationsmenü" collapsible="false">
                         <p:menu>
                             <p:submenu label="Resources">
-                                <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                                <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                                <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                                <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                                <p:menuitem value="Kunde anlegen" url="customer/createCustomerWithAddress.xhtml" />
+                                <p:menuitem value="Kunden anzeigen" url="customer/customerWithAddressList.xhtml" />
+                                <p:menuitem value="Benutzerverwaltung" url="userdata/List.xhtml" />
                             </p:submenu>
                             <p:submenu label="Tests">
                                 <p:menuitem value="Test" outcome="test/test.xhtml" icon="ui-icon-star" />
                             </p:submenu>
                         </p:menu>
                     </p:layoutUnit>
-                    <p:layoutUnit position="center">                        
-                        <h:form id="signinForm">
-                            <h:message for="signinForm" />
-                            <p:growl id="statusGrowl" showDetail="true" sticky="false" />
-                            <p:button value="Anmelden" onclick="PF('loginDialog').show(); return false;" title="login"></p:button>
-                            <p:button value="Registrieren" onclick="PF('registerDialog').show(); return false;" title="register"></p:button>
-                            <ui:include src="login.xhtml"/>
-                            <ui:include src="register.xhtml"/>
-                        </h:form>
+                    <p:layoutUnit position="center">
+                        <!--<h:form id="signinForm">
+                            <h:message for="signinForm" />-->
+                        
+                        <p:button value="Anmelden" onclick="PF('loginDialog').show(); return false;" title="Anmelden"></p:button>
+                        <ui:include src="login.xhtml"/>
+                        <!--<p:button value="Registrieren" onclick="PF('registerDialog').show(); return false;" title="Registrieren"></p:button>-->
+                        <p:growl id="statusGrowl" showDetail="true" sticky="false" />
+
+                            <!--<ui:include src="register.xhtml"/>-->
+                        <!--</h:form>-->
                     </p:layoutUnit>
                 </p:layout>
             </h:form>

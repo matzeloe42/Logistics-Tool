@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
@@ -89,7 +90,7 @@ public class SigninController implements Serializable
         return items;
     }
 
-    public void loginControl(ActionEvent event)
+    public void loginControl()
     {
         try
         {
@@ -105,6 +106,10 @@ public class SigninController implements Serializable
             {
                 loggedIn = true;
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Willkommen ", username);
+                //FacesContext facesContext = FacesContext.getCurrentInstance();
+                //ExternalContext context = facesContext.getExternalContext();
+                //HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+                //context.redirect("welcome.xhtml?faces-redirect=true");
             }
             else
             {
