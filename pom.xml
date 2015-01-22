@@ -55,8 +55,8 @@
                 <groupId>org.jboss.shrinkwrap.resolver</groupId>
                 <artifactId>shrinkwrap-resolver-bom</artifactId>
                 <version>2.1.1</version>
-                <type>pom</type>
                 <scope>import</scope>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -115,8 +115,8 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-depchain</artifactId>
-            <type>pom</type>
             <scope>test</scope>
+            <type>pom</type>
         </dependency>
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
@@ -147,12 +147,6 @@
             <artifactId>selenium-firefox-driver</artifactId>
             <version>2.44.0</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.main.extras</groupId>
-            <artifactId>glassfish-embedded-all</artifactId>
-            <version>4.1</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
         
@@ -244,7 +238,7 @@
                             <cargo.remote.port>8080</cargo.remote.port>
                             <cargo.glassfish.domain.name>/domain1</cargo.glassfish.domain.name>
                         </properties>
-                    </configuration>
+                    </configuration>                
                     <deployables>
                         <deployable>
                             <groupId>com.logisticstool</groupId>
