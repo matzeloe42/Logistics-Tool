@@ -7,9 +7,10 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class DeleteUserDialog
+public class CreateAndLoginUserDialog
 {
 
     private WebDriver driver;
@@ -26,14 +27,26 @@ public class DeleteUserDialog
     }
 
     @Test
-    public void testDeleteUserDialog() throws Exception
+    public void testCreateUserDialog() throws Exception
     {
-        driver.get(baseUrl + "/Logistics-Tool/faces/index.xhtml");
+        driver.get(baseUrl + "/Logistics-Tool/");
         driver.findElement(By.xpath("//div[@id='formBody:j_idt12']/ul/li[6]/a/span[2]")).click();
         driver.findElement(By.linkText("Show All Userdata Items")).click();
-        driver.findElement(By.xpath("//tbody[@id='UserdataListForm:datalist_data']/tr[2]/td")).click();
-        driver.findElement(By.id("UserdataListForm:datalist:deleteButton")).click();
+        driver.findElement(By.id("UserdataListForm:datalist:createButton")).click();
+        driver.findElement(By.id("UserdataCreateForm:userDataID")).clear();
+        driver.findElement(By.id("UserdataCreateForm:userDataID")).sendKeys("2");
+        driver.findElement(By.id("UserdataCreateForm:username")).clear();
+        driver.findElement(By.id("UserdataCreateForm:username")).sendKeys("test");
+        driver.findElement(By.id("UserdataCreateForm:password")).clear();
+        driver.findElement(By.id("UserdataCreateForm:password")).sendKeys("1234");
+        driver.findElement(By.id("UserdataCreateForm:j_idt45")).click();
         driver.findElement(By.cssSelector("span.ui-menuitem-text")).click();
+        driver.findElement(By.id("formBody:j_idt21")).click();
+        driver.findElement(By.id("formBody:loginUsername")).clear();
+        driver.findElement(By.id("formBody:loginUsername")).sendKeys("test");
+        driver.findElement(By.id("formBody:loginPassword")).clear();
+        driver.findElement(By.id("formBody:loginPassword")).sendKeys("1234");
+        driver.findElement(By.id("formBody:j_idt26")).click();
     }
 
     @After
