@@ -10,10 +10,15 @@
     <name>LogisticsTool</name>
 
     <properties>
+        <browser>firefox</browser>
+        <selenium.port>4444</selenium.port>
+        <servlet.port>8080</servlet.port>
+        <appsrv.url>http://localhost:${servlet.port}</appsrv.url>
+        <contextpath>${project.artifactId}</contextpath>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+          
     <pluginRepositories>
         <pluginRepository>
             <id>glassfish</id>
@@ -36,7 +41,7 @@
             <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
         </repository>
     </repositories>
-    
+            
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -55,7 +60,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-   
+       
     <dependencies>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
@@ -116,7 +121,7 @@
         <dependency>
             <groupId>org.jboss.arquillian.container</groupId>
             <artifactId>arquillian-glassfish-managed-3.1</artifactId>
-            <version>1.0.0.CR4</version>
+            <version>1.0.0.Final-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -143,10 +148,16 @@
             <version>2.44.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.main.extras</groupId>
+            <artifactId>glassfish-embedded-all</artifactId>
+            <version>4.1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
         
     <build>
-        <plugins>           
+        <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -158,7 +169,7 @@
                 <version>2.3</version>
                 <executions>
                     <execution>
-                        <phase>pre-integration-test</phase>
+                        <phase>test-compile</phase>
                         <goals>
                             <goal>start-server</goal>
                         </goals>
@@ -167,7 +178,8 @@
                             <logOutput>true</logOutput>
                         </configuration>
                     </execution>
-                </executions>
+                </executions>              
+        
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
