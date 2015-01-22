@@ -1,5 +1,7 @@
-package com.logisticstool.logisticstool;
+package com.logisticstool.junit;
 
+import com.logisticstool.logisticstool.Offer;
+import com.logisticstool.logisticstool.Storage;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,7 +11,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

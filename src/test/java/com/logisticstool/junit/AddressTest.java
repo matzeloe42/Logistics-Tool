@@ -1,5 +1,8 @@
-package com.logisticstool.logisticstool;
+package com.logisticstool.junit;
 
+import com.logisticstool.logisticstool.Address;
+import com.logisticstool.logisticstool.Customer;
+import com.logisticstool.logisticstool.Place;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.After;

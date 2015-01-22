@@ -1,5 +1,7 @@
-package com.logisticstool.logisticstool;
+package com.logisticstool.junit;
 
+import com.logisticstool.logisticstool.Product;
+import com.logisticstool.logisticstool.Transport;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;

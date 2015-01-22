@@ -1,5 +1,8 @@
-package com.logisticstool.logisticstool;
+package com.logisticstool.junit;
 
+import com.logisticstool.logisticstool.Destinationaddress;
+import com.logisticstool.logisticstool.Place;
+import com.logisticstool.logisticstool.Transport;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.After;

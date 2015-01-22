@@ -1,5 +1,11 @@
-package com.logisticstool.logisticstool;
+package com.logisticstool.junit;
 
+import com.logisticstool.logisticstool.Destinationaddress;
+import com.logisticstool.logisticstool.Move;
+import com.logisticstool.logisticstool.Offer;
+import com.logisticstool.logisticstool.Product;
+import com.logisticstool.logisticstool.Startaddress;
+import com.logisticstool.logisticstool.Transport;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.After;
@@ -8,7 +14,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

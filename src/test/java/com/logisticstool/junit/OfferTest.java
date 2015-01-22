@@ -1,5 +1,11 @@
-package com.logisticstool.logisticstool;
+package com.logisticstool.junit;
 
+import com.logisticstool.logisticstool.Customer;
+import com.logisticstool.logisticstool.Job;
+import com.logisticstool.logisticstool.Move;
+import com.logisticstool.logisticstool.Offer;
+import com.logisticstool.logisticstool.Storage;
+import com.logisticstool.logisticstool.Transport;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;

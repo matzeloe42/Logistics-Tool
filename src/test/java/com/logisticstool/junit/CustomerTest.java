@@ -1,5 +1,9 @@
-package com.logisticstool.logisticstool;
+package com.logisticstool.junit;
 
+import com.logisticstool.logisticstool.Address;
+import com.logisticstool.logisticstool.Creditadvice;
+import com.logisticstool.logisticstool.Customer;
+import com.logisticstool.logisticstool.Offer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -99,7 +103,7 @@ public class CustomerTest
     }
     
     @Test
-    public void testSetCreditAdviceCollection()
+    public void testSetCreditadviceCollection()
     {
         Collection<Creditadvice> creditadviceCollection = new ArrayList();
         _customer.setCreditadviceCollection(creditadviceCollection);

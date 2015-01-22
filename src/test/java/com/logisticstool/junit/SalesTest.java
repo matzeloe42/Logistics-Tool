@@ -1,5 +1,8 @@
-package com.logisticstool.logisticstool;
+package com.logisticstool.junit;
 
+import com.logisticstool.logisticstool.Creditadvice;
+import com.logisticstool.logisticstool.Job;
+import com.logisticstool.logisticstool.Sales;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.After;
