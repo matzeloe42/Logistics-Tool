@@ -65,7 +65,7 @@ public class CustomerControllerTest
         );
     }
     
-    @Test
+    /*@Test
     public void testGetItems()
     {
         List<Customer> items = _customerController.getItems();
@@ -91,7 +91,7 @@ public class CustomerControllerTest
     {
         List<Customer> itemsAvailableSelectOne = _customerController.getItemsAvailableSelectOne();
         Assert.assertTrue("correct getItemsAvailableSelectOne", itemsAvailableSelectOne.isEmpty() == false);
-    }
+    }*/
     
     /* Test void methods----------------------------------------------------- */
     @Test
